@@ -1,4 +1,3 @@
-//Jenkins file only to tutorial example
 pipeline {
   agent any
     
@@ -6,7 +5,13 @@ pipeline {
     
   stages {
         
-    stage('Biuld') {
+    stage('Cloning Git') {
+      steps {
+        git 'https://github.com/Sunkanmi-neulogic/node_sample.git'
+      }
+    }
+        
+    stage('Installing Dependencies') {
       steps {
         sh 'npm install'
       }
