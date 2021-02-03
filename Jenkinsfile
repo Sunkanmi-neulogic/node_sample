@@ -4,7 +4,7 @@ pipeline {
   triggers {
     githubPush()
   }
-  
+
   tools {nodejs "node"}
     
   stages {
@@ -27,6 +27,14 @@ pipeline {
          sh 'chmod +x script/test.sh'
          sh './script/test.sh'
       }
-    }      
+    }     
+  }
+  post {
+    success {
+      echo 'The pipeline was Successful'
+    }
+    failure {
+      mail bcc: '', body: "<b>Example</b><br>Project: ${env.JOB_NAME} <br>Build Number: ${env.BUILD_NUMBER} <br> URL de build: ${env.BUILD_URL}", cc: '', charset: 'UTF-8', from: '', mimeType: 'text/html', replyTo: '', subject: "ERROR CI: Project name -> ${env.JOB_NAME}", to: "foo@foomail.com";
+    }
   }
 }
