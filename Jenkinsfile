@@ -32,6 +32,8 @@ pipeline {
   post {
     success {
       echo 'The pipeline was Successful'
+      sh 'chmod +x script/deploy.sh'
+      sh './script/deploy.sh'
     }
     failure {
       mail bcc: '', body: "<b>Error in Pipeline</b><br>Project: ${env.JOB_NAME} <br>Build Number: ${env.BUILD_NUMBER} <br> Biuld URL: ${env.BUILD_URL}", cc: '', charset: 'UTF-8', from: '', mimeType: 'text/html', replyTo: '', subject: "ERROR CI: ${env.JOB_NAME}", to: "sunkanmi.samson@neulogicsolutions.com";
